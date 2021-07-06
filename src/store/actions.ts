@@ -4,7 +4,6 @@ import { State } from '../types';
 
 export enum ActionTypes
 {
-  HideModal = 'HIDE_MODAL',
   HideSidebar = 'HIDE_SIDEBAR',
   ShowSidebar = 'SHOW_SIDEBAR',
 }
@@ -17,17 +16,11 @@ type ActionAugments = Omit<ActionContext<State, State>, 'commit'> & {
 };
 
 export type Actions = {
-  [ActionTypes.HideModal](context: ActionAugments): void;
   [ActionTypes.HideSidebar](context: ActionAugments): void;
   [ActionTypes.ShowSidebar](context: ActionAugments): void;
 };
 
 export const actions: ActionTree<State, State> & Actions = {
-  //_____________________________________________________________________ HideModal
-  [ActionTypes.HideModal]({ commit })
-  {
-    commit(MutationType.SetShowModal, false);
-  },
   //_____________________________________________________________________ HideSidebar
   [ActionTypes.HideSidebar]({ commit })
   {

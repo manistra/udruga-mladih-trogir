@@ -62,8 +62,6 @@ export default defineComponent({
         }, props.typingDelay);
       };
       const deletePhrase = (nextPhrase: () => void) => {
-        console.log(textToShow.value.length);
-
         if (textToShow.value.length == 0) nextPhrase();
         setTimeout(() => {
           textToShow.value = textToShow.value.slice(0, -1);
@@ -78,7 +76,6 @@ export default defineComponent({
     };
 
     const typePhraseList = () => {
-      console.log("start");
       typePhrase(
         Array.from(props.textList[currentPhrase.value]),
         typePhraseList

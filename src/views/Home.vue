@@ -1,20 +1,20 @@
 <template>
   <div class="relative bg-gray-800">
     <div
-      class="flex flex-col px-5 py-10 text-3xl text-left bg-gray-900 border-gray-700 border-opacity-50  lg:px-16 lg:py-16 h-90v border-b-1"
+      class="flex flex-col px-5 py-10 text-3xl text-left bg-gray-900 border-gray-700 border-opacity-50  lg:justify-center lg:px-16 lg:py-16 h-90v border-b-1"
     >
-      <div class="lg:h-1/2 h-2/3 lg:flex lg:items-end">
+      <div class="flex justify-between lg:h-1/2 h-2/3">
         <suspense
           ><Typewriter
             class="text-6xl lg:text-9xl"
             :textList="['udruga mladih trogir']"
-            :breakWords="false"
+            :typingDelay="120"
+            :breakWords="true"
             :hideCaretAtEnd="true"
             @finished="titleFinishedPrinting"
           />
         </suspense>
       </div>
-
       <div
         class="flex flex-col items-start mx-auto  lg:w-1/2 lg:flex-row lg:items-center h-1/3 lg:h-1/2"
       >
