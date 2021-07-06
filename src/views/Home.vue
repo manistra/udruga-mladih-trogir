@@ -1,15 +1,18 @@
 <template>
-  <div class="relative bg-gray-800">
+  <div class="relative bg-gray-900">
+    <Navbar />
     <div
-      class="flex flex-col px-5 py-10 text-3xl text-left bg-gray-900 border-gray-700 border-opacity-50  lg:justify-center lg:px-16 lg:py-16 h-90v border-b-1"
+      class="flex flex-col px-4 text-3xl text-left bg-gray-900 border-gray-700 border-opacity-50  lg:justify-center lg:px-16 h-90v border-b-1"
     >
-      <div class="flex justify-between lg:h-1/2 h-2/3">
+      <div
+        class="flex justify-center lg:items-end lg:-mt-28 -mt-14 lg:h-1/2 h-2/3"
+      >
         <suspense
           ><Typewriter
             class="text-6xl lg:text-9xl"
             :textList="['udruga mladih trogir']"
             :typingDelay="120"
-            :breakWords="true"
+            :breakWords="false"
             :hideCaretAtEnd="true"
             @finished="titleFinishedPrinting"
           />
@@ -39,63 +42,65 @@
         </suspense>
       </div>
     </div>
-    <Navbar />
-
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
-    >
-      Ode ce bit kontent neki
-    </div>
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
-    >
-      Ode ce bit kontent neki
-    </div>
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
-    >
-      Ode ce bit kontent neki
-    </div>
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
-    >
-      Ode ce bit kontent neki
-    </div>
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
-    >
-      Ode ce bit kontent neki
-    </div>
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
-    >
-      Ode ce bit kontent neki
-    </div>
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
-    >
-      Ode ce bit kontent neki
-    </div>
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
-    >
-      Ode ce bit kontent neki
-    </div>
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
-    >
-      Ode ce bit kontent neki
-    </div>
-    <div
-      class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
-    >
-      Ode ce bit kontent neki
+    <div ref="content" class="w-full h-full bg-transparent">
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
+      >
+        Ode ce bit kontent neki
+      </div>
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
+      >
+        Ode ce bit kontent neki
+      </div>
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
+      >
+        Ode ce bit kontent neki
+      </div>
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
+      >
+        Ode ce bit kontent neki
+      </div>
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
+      >
+        Ode ce bit kontent neki
+      </div>
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
+      >
+        Ode ce bit kontent neki
+      </div>
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
+      >
+        Ode ce bit kontent neki
+      </div>
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
+      >
+        Ode ce bit kontent neki
+      </div>
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
+      >
+        Ode ce bit kontent neki
+      </div>
+      <div
+        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
+      >
+        Ode ce bit kontent neki
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted, onUnmounted } from "vue";
+import { useStore } from "../store";
+import { ActionTypes } from "../store/actions";
 import Navbar from "@/components/Navbar.vue";
 import Typewriter from "../components/Typewriter.vue";
 export default defineComponent({
@@ -105,8 +110,30 @@ export default defineComponent({
     Typewriter,
   },
   setup() {
+    const store = useStore();
+    const content = ref<HTMLElement | null>(null);
     const showSubTitle = ref<boolean>(false);
     const showSubSubTitle = ref<boolean>(false);
+
+    onMounted(() => {
+      window.addEventListener("scroll", handleScroll);
+    });
+    onUnmounted(() => {
+      window.removeEventListener("scroll", handleScroll);
+    });
+
+    const handleScroll = (e: any) => {
+      if (content.value != null) {
+        if (content.value?.getBoundingClientRect().top < 300) {
+          if (store.state.navbarTransparent === true)
+            store.dispatch(ActionTypes.MakeNavbarSolid);
+        }
+        if (content.value?.getBoundingClientRect().top > 300) {
+          if (store.state.navbarTransparent === false)
+            store.dispatch(ActionTypes.MakeNavbarTransparent);
+        }
+      }
+    };
 
     const titleFinishedPrinting = () => {
       showSubTitle.value = true;
@@ -118,12 +145,15 @@ export default defineComponent({
       showSubSubTitle.value = true;
     };
 
+    console.log(content.value);
+
     return {
       titleFinishedPrinting,
       subTitleFinishedPrinting,
       subSubTitleFinishedPrinting,
       showSubTitle,
       showSubSubTitle,
+      content,
     };
   },
 });
