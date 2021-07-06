@@ -1,6 +1,8 @@
 <template>
-  <Sidebar />
-  <router-view />
+  <section class="font-specialElite">
+    <Sidebar />
+    <router-view />
+  </section>
 </template>
 
 
@@ -21,7 +23,6 @@ export default defineComponent({
 
 <style>
 #app {
-  font-family: "Special Elite", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

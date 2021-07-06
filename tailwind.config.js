@@ -15,8 +15,11 @@ module.exports = {
         '90v': '90vh',
         '100v': '100vh',
       },
+      fontFamily: {
+        specialElite: ['Special Elite, cursive'],
+      },
       borderWidth: {
-        '1': '1px',
+        1: '1px',
       },
     },
   },
@@ -24,4 +27,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};

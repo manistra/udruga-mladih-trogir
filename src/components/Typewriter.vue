@@ -1,9 +1,6 @@
 <template>
   <div class="typewriter">
-    <div
-      class="text-gray-400"
-      :style="breakWords ? { display: 'table-caption' } : {}"
-    >
+    <div class="" :style="breakWords ? { display: 'table-caption' } : {}">
       {{ textToShow }} <span v-if="showCaret" class="pl-1 border-r-2"></span>
     </div>
   </div>

@@ -9,7 +9,7 @@
       >
         <suspense
           ><Typewriter
-            class="text-6xl lg:text-9xl"
+            class="pr-16 text-6xl text-gray-400 lg:text-8xl xl:text-9xl lg:pr-0"
             :textList="['udruga mladih trogir']"
             :typingDelay="120"
             :breakWords="false"
@@ -27,70 +27,55 @@
             v-if="showSubTitle"
             :hideCaretAtEnd="true"
             @finished="subTitleFinishedPrinting"
-            class="pr-5 text-3xl text-right lg:text-6xl"
+            class="pr-5 text-3xl text-right text-gray-400 lg:text-6xl"
             :textList="['Organiziramo: ']"
           />
         </suspense>
         <suspense>
           <Typewriter
             :typingDelay="100"
-            class="text-3xl text-left lg:text-6xl"
+            class="text-3xl text-left text-gray-400 lg:text-6xl"
             v-if="showSubSubTitle"
             @finished="subSubTitleFinishedPrinting"
-            :textList="['pireve', 'sprovode', 'koncerte', 'veselice']"
+            :textList="[
+              'koncerte',
+              'radionice',
+              'druženja',
+              'večer filma',
+              'slušaone',
+            ]"
           />
         </suspense>
       </div>
     </div>
     <div ref="content" class="w-full h-full bg-transparent">
       <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
+        ref="linkOne"
+        class="flex flex-col items-center justify-center w-full h-screen gap-20 text-2xl text-gray-100 bg-gray-700 "
       >
+        <div class="text-6xl">Tko Smo Mi?</div>
+
         Ode ce bit kontent neki
       </div>
       <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
+        ref="linkTwo"
+        class="flex flex-col items-center justify-center w-full h-screen gap-20 text-2xl text-gray-100 bg-gray-800 "
       >
+        <div class="text-6xl">Projekti</div>
         Ode ce bit kontent neki
       </div>
       <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
+        ref="linkThree"
+        class="flex flex-col items-center justify-center w-full h-screen gap-20 text-2xl text-gray-100 bg-gray-700 "
       >
+        <div class="text-6xl">Radionice</div>
         Ode ce bit kontent neki
       </div>
       <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
+        ref="linkFour"
+        class="flex flex-col items-center justify-center w-full h-screen gap-20 text-2xl text-gray-100 bg-gray-800 "
       >
-        Ode ce bit kontent neki
-      </div>
-      <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
-      >
-        Ode ce bit kontent neki
-      </div>
-      <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
-      >
-        Ode ce bit kontent neki
-      </div>
-      <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
-      >
-        Ode ce bit kontent neki
-      </div>
-      <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
-      >
-        Ode ce bit kontent neki
-      </div>
-      <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-700 "
-      >
-        Ode ce bit kontent neki
-      </div>
-      <div
-        class="flex items-center justify-center w-full h-screen text-2xl text-gray-100 bg-gray-800 "
-      >
+        <div class="text-6xl">Kontakt</div>
         Ode ce bit kontent neki
       </div>
     </div>
@@ -98,7 +83,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onUnmounted } from "vue";
+import { defineComponent, ref, onMounted, onUnmounted, computed } from "vue";
 import { useStore } from "../store";
 import { ActionTypes } from "../store/actions";
 import Navbar from "@/components/Navbar.vue";
@@ -112,6 +97,10 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const content = ref<HTMLElement | null>(null);
+    const linkOne = ref<HTMLElement | null>(null);
+    const linkTwo = ref<HTMLElement | null>(null);
+    const linkThree = ref<HTMLElement | null>(null);
+    const linkFour = ref<HTMLElement | null>(null);
     const showSubTitle = ref<boolean>(false);
     const showSubSubTitle = ref<boolean>(false);
 
@@ -134,6 +123,48 @@ export default defineComponent({
         }
       }
     };
+    store.watch(
+      (state) => state.scrollToLinkOne,
+      () => scrollToLinkOne()
+    );
+    store.watch(
+      (state) => state.scrollToLinkTwo,
+      () => scrollToLinkTwo()
+    );
+    store.watch(
+      (state) => state.scrollToLinkThree,
+      () => scrollToLinkThree()
+    );
+    store.watch(
+      (state) => state.scrollToLinkFour,
+      () => scrollToLinkFour()
+    );
+    store.watch(
+      (state) => state.scrollToTop,
+      () => scrollToTop()
+    );
+
+    const scrollToLinkOne = () => {
+      if (linkOne.value != null)
+        linkOne.value.scrollIntoView({ behavior: "smooth" });
+    };
+    const scrollToLinkTwo = () => {
+      if (linkTwo.value != null)
+        linkTwo.value.scrollIntoView({ behavior: "smooth" });
+    };
+    const scrollToLinkThree = () => {
+      if (linkThree.value != null)
+        linkThree.value.scrollIntoView({ behavior: "smooth" });
+    };
+    const scrollToLinkFour = () => {
+      if (linkFour.value != null)
+        linkFour.value.scrollIntoView({ behavior: "smooth" });
+    };
+    const scrollToTop = () => {
+      console.log("dasd");
+
+      window.scrollBy({ top: -document.body.scrollHeight, behavior: "smooth" });
+    };
 
     const titleFinishedPrinting = () => {
       showSubTitle.value = true;
@@ -154,6 +185,10 @@ export default defineComponent({
       showSubTitle,
       showSubSubTitle,
       content,
+      linkOne,
+      linkTwo,
+      linkThree,
+      linkFour,
     };
   },
 });
