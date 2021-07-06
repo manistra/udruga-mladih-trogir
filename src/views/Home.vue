@@ -2,10 +2,10 @@
   <div class="relative bg-gray-900">
     <Navbar />
     <div
-      class="flex flex-col px-4 text-3xl text-left bg-gray-900 border-gray-700 border-opacity-50  lg:justify-center lg:px-16 h-90v border-b-1"
+      class="flex flex-col px-6 text-3xl text-left bg-gray-900 border-gray-700 border-opacity-50  lg:justify-center lg:px-16 h-90v border-b-1"
     >
       <div
-        class="flex justify-center lg:items-end lg:-mt-28 -mt-14 lg:h-1/2 h-2/3"
+        class="flex justify-center -mt-10 lg:items-end lg:-mt-28 lg:h-1/2 h-2/3"
       >
         <suspense
           ><Typewriter
