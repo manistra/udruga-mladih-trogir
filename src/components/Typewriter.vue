@@ -15,20 +15,15 @@ import { defineComponent, PropType, ref } from "vue";
 export default defineComponent({
   name: "Home",
   props: {
-    startDelay: {
-      type: Number,
-      default: 300,
-    },
     typingDelay: {
       type: Number,
       default: 200,
     },
-    text: {
-      type: String,
-      default: "",
-    },
     textList: {
       type: Array as PropType<string[]>,
+      default: () => {
+        return [];
+      },
     },
     breakWords: {
       type: Boolean,
@@ -39,32 +34,58 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props, context) {
+  async setup(props, context) {
     const textToShow = ref<string>("");
     const showCaret = ref<boolean>(true);
+    const currentPhrase = ref<number>(0);
 
-    const type = (textToType: Array<string>) => {
-      textToShow.value = "";
+    const typePhrase = (textToType: Array<string>, nextPhrase: () => void) => {
       let i = 0;
-      const typeLetter = () => {
+      const type = (nextPhrase: () => void) => {
         setTimeout(() => {
           textToShow.value = textToShow.value + textToType[i];
-          if (i == textToType.length - 1) {
-            context.emit("finished");
-            if (props.hideCaretAtEnd) showCaret.value = false;
-          }
           i++;
-          if (i < textToType.length) {
-            typeLetter();
-          }
+          if (i == textToType.length) {
+            context.emit("finished");
+            //current word finished printing
+            if (currentPhrase.value == props.textList.length - 1)
+              //textList reached end
+              currentPhrase.value = 0;
+            else currentPhrase.value++;
+
+            if (props.hideCaretAtEnd) showCaret.value = false;
+            if (props.textList.length > 1)
+              setTimeout(() => {
+                deletePhrase(nextPhrase);
+              }, 2000);
+          } else type(nextPhrase);
         }, props.typingDelay);
       };
-      typeLetter();
+      const deletePhrase = (nextPhrase: () => void) => {
+        console.log(textToShow.value.length);
+
+        if (textToShow.value.length == 0) nextPhrase();
+        setTimeout(() => {
+          textToShow.value = textToShow.value.slice(0, -1);
+          if (textToShow.value.length != 0) deletePhrase(nextPhrase);
+          else {
+            nextPhrase();
+          }
+        }, 90);
+      };
+
+      type(nextPhrase);
     };
 
-    setTimeout(() => {
-      type(Array.from(props.text));
-    }, props.startDelay);
+    const typePhraseList = () => {
+      console.log("start");
+      typePhrase(
+        Array.from(props.textList[currentPhrase.value]),
+        typePhraseList
+      );
+    };
+
+    typePhraseList();
 
     return { textToShow, showCaret };
   },
