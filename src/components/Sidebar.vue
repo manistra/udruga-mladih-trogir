@@ -63,7 +63,7 @@
                   </div>
                   <div class="flex flex-row gap-5">
                     <a
-                      href="https://www.facebook.com/search/top?q=udruga%20mladih%20trogir"
+                      href="https://www.facebook.com/udrugamladihtrogir"
                       class="flex items-center justify-center h-1/2"
                     >
                       <svg

@@ -79,6 +79,12 @@
         Ode ce bit kontent neki
       </div>
     </div>
+    <Footer
+      @link-one="scrollToLinkOne"
+      @link-two="scrollToLinkTwo"
+      @link-three="scrollToLinkThree"
+      @link-four="scrollToLinkFour"
+    />
   </div>
 </template>
 
@@ -87,12 +93,14 @@ import { defineComponent, ref, onMounted, onUnmounted, computed } from "vue";
 import { useStore } from "../store";
 import { ActionTypes } from "../store/actions";
 import Navbar from "@/components/Navbar.vue";
+import Footer from "@/components/Footer.vue";
 import Typewriter from "../components/Typewriter.vue";
 export default defineComponent({
   name: "Home",
   components: {
     Navbar,
     Typewriter,
+    Footer,
   },
   setup() {
     const store = useStore();
@@ -113,11 +121,17 @@ export default defineComponent({
 
     const handleScroll = (e: any) => {
       if (content.value != null) {
-        if (content.value?.getBoundingClientRect().top < 300) {
+        if (
+          content.value?.getBoundingClientRect().top <
+          (window.innerHeight * 4) / 5
+        ) {
           if (store.state.navbarTransparent === true)
             store.dispatch(ActionTypes.MakeNavbarSolid);
         }
-        if (content.value?.getBoundingClientRect().top > 300) {
+        if (
+          content.value?.getBoundingClientRect().top >
+          (window.innerHeight * 4) / 5
+        ) {
           if (store.state.navbarTransparent === false)
             store.dispatch(ActionTypes.MakeNavbarTransparent);
         }
@@ -185,6 +199,11 @@ export default defineComponent({
       showSubTitle,
       showSubSubTitle,
       content,
+      scrollToLinkOne,
+      scrollToLinkTwo,
+      scrollToLinkThree,
+      scrollToLinkFour,
+      scrollToTop,
       linkOne,
       linkTwo,
       linkThree,
