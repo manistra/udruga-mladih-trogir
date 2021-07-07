@@ -175,8 +175,6 @@ export default defineComponent({
         linkFour.value.scrollIntoView({ behavior: "smooth" });
     };
     const scrollToTop = () => {
-      console.log("dasd");
-
       window.scrollBy({ top: -document.body.scrollHeight, behavior: "smooth" });
     };
 
@@ -189,8 +187,6 @@ export default defineComponent({
     const subSubTitleFinishedPrinting = () => {
       showSubSubTitle.value = true;
     };
-
-    console.log(content.value);
 
     return {
       titleFinishedPrinting,

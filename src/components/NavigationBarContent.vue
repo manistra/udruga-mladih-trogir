@@ -5,7 +5,7 @@
       class="text-left text-gray-400 cursor-pointer  font-specialElite hover:text-white"
       :class="isHome ? 'text-2xl px-5' : 'text-2xl py-2'"
       :textList="['Tko smo mi?']"
-      :typingDelay="isHome ? 45 : 10"
+      :typingDelay="isHome ? 45 : 34"
       :hideCaretAtEnd="true"
       @finished="linkTwo = true"
     />
@@ -16,7 +16,7 @@
       class="text-left text-gray-400 cursor-pointer  font-specialElite hover:text-white"
       :class="isHome ? 'text-2xl px-5' : 'text-2xl py-2'"
       :textList="['Projekti']"
-      :typingDelay="isHome ? 50 : 10"
+      :typingDelay="isHome ? 50 : 19"
       :hideCaretAtEnd="true"
       v-if="linkTwo"
       @finished="linkThree = true"
@@ -28,7 +28,7 @@
       class="text-left text-gray-400 cursor-pointer  font-specialElite hover:text-white"
       :class="isHome ? 'text-2xl px-5' : 'text-2xl py-2'"
       :textList="['Radionice']"
-      :typingDelay="isHome ? 70 : 10"
+      :typingDelay="isHome ? 70 : 19"
       :hideCaretAtEnd="true"
       v-if="linkThree"
       @finished="linkFour = true"
@@ -41,8 +41,8 @@
       class="text-left text-gray-400 cursor-pointer  font-specialElite hover:text-white"
       :class="isHome ? 'text-2xl px-5' : 'text-2xl py-2'"
       :textList="['Kontakt']"
-      :typingDelay="isHome ? 100 : 25"
-      :hideCaretAtEnd="true"
+      :typingDelay="isHome ? 100 : 54"
+      :hideCaretAtEnd="false"
     />
   </suspense>
 </template> 

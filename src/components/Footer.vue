@@ -141,18 +141,18 @@
         </div>
       </div>
       <div
-        class="flex items-center justify-end px-4 py-3  lg:bottom-8 lg:right-0 lg:absolute lg:w-2/12 lg:justify-center"
+        class="flex items-center justify-center  pb-7 lg:bottom-8 lg:right-0 lg:absolute lg:w-2/12 lg:justify-center"
       >
         <a
           href="https://registri.uprava.hr/#!udruga-detalji/vwcBAAEAAQF1ZHJ1Z2EgbWxhZGloIHRyb2dp8gAAAAAAAAAAAAABAQFvaeICAZK_HQ"
-          class="flex flex-row-reverse items-center justify-center h-full font-sans text-right text-gray-600 cursor-pointer  lg:text-center lg:flex-col hover:opacity-100 opacity-40"
+          class="flex flex-row items-center justify-center h-full font-sans text-left text-gray-600 cursor-pointer  lg:text-center lg:flex-col hover:opacity-100 opacity-40"
         >
           <img
             alt="UM-Trogir"
             src="../assets/stamp.png"
             class="w-12 h-12 lg:w-20 lg:h-20"
           />
-          <div class="pr-2 lg:pr-0">
+          <div class="pl-1 lg:pl-0">
             <p class="text-xs">Copyright Ⓒ 2021,</p>
             <p class="text-xs font-semibold">Udruga mladih Trogir</p>
           </div>
